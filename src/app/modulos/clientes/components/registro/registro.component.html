@@ -1,0 +1,84 @@
+<div class="row justify-content-center animate__animated animate__fadeIn">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+        <div class="card card-secondary">
+            <div class="card-header">
+              <h3 class="card-title">Registro de cliente</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="formCrearCliente">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input 
+                    type="text"
+                    class="form-control"                    
+                    id="nombre"
+                    placeholder="Nombres"
+                    formControlName="nombre"
+                    [ngClass]="{'is-invalid animate__animated animate__headShake': campoNoValido('nombre')}"                    
+                  >
+                  <small *ngIf="campoNoValido('nombre')" class="text-danger">
+                    * Favor proporcionar nombre con al menos dos caracteres
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="apellido">Apellido</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="apellido"                    
+                    placeholder="Apellidos"
+                    formControlName="apellido"
+                    [ngClass]="{'is-invalid animate__animated animate__headShake': campoNoValido('apellido')}"
+                  >
+                  <small *ngIf="campoNoValido('apellido')" class="text-danger">
+                    * Favor proporcionar apellido con al menos dos caracteres
+                  </small>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo</label>
+                    <input 
+                      type="email"
+                      class="form-control"                      
+                      id="email"
+                      placeholder="Email"
+                      formControlName="email"
+                      [ngClass]="{'is-invalid animate__animated animate__headShake': campoNoValido('email')}"
+                    >
+                    <small *ngIf="campoNoValido('email')" class="text-danger">
+                      * Favor proporcionar un correo electronico válido
+                    </small>
+                </div>
+                <!-- <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="exampleInputFile">
+                      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="">Upload</span>
+                    </div>
+                  </div>
+                </div> -->
+                <!-- <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Check me out</label> 
+                </div> -->
+              </div>
+              <!-- /.card-body -->
+        
+              <div class="card-footer" *ngIf="cliente.id">                
+                <button type="submit" class="btn btn-secondary mx-1" (click)="update()">Actualizar</button>
+                <a [routerLink]="['/clientes/detalle/', cliente.id]" type="submit" class="btn btn-danger mx-1">Cancelar</a>
+              </div>
+
+              <div class="card-footer" *ngIf="!cliente.id">
+                <button type="submit" class="btn btn-secondary mx-1" (click)="create()">Registrar</button>                
+                <a [routerLink]="['/inicio']" type="submit" class="btn btn-danger mx-1">Cancelar</a>
+              </div>
+            </form>
+          </div>
+    </div>
+</div>

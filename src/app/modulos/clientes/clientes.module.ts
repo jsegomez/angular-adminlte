@@ -1,30 +1,38 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// Rutas 
-import { ClientesRoutingModule } from './clientes-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import localeES from '@angular/common/locales/global/es';
+import { registerLocaleData } from '@angular/common';
 
 // Módulos
 import { SharedModule } from '../shared/shared.module';
 
 // Componentes
-import { RegistroComponent } from './registro/registro.component';
-import { BuscarComponent } from './buscar/buscar.component';
-import { ListadoComponent } from './listado/listado.component';
-import { MainClientesComponent } from './main-clientes/main-clientes.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { BuscarComponent } from './components/buscar/buscar.component';
+import { ListadoComponent } from './components/listado/listado.component';
+import { MainClientesComponent } from './components/main-clientes/main-clientes.component';
+import { DetalleComponent } from './components/detalle/detalle.component';
 
+registerLocaleData(localeES, 'es');
 
 @NgModule({
   declarations: [
     RegistroComponent,
     BuscarComponent,
     ListadoComponent,
-    MainClientesComponent
+    MainClientesComponent,
+    DetalleComponent,    
   ],
   imports: [
     CommonModule,
-    ClientesRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     RegistroComponent,

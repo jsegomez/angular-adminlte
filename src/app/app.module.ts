@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import localeES from '@angular/common/locales/global/es';
+import { registerLocaleData } from '@angular/common';
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -13,6 +16,9 @@ import { SharedModule } from './modulos/shared/shared.module';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { InicioComponent } from './components/inicio/inicio.component';
 
+
+registerLocaleData(localeES, 'es');
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,10 +26,11 @@ import { InicioComponent } from './components/inicio/inicio.component';
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     AuthModule,    
     ClientesModule,
-    SharedModule
+    SharedModule,    
   ],
   providers: [],
   bootstrap: [AppComponent]

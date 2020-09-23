@@ -1,0 +1,79 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-11">
+            <section class="content">
+                <div class="card">
+                    <div class="card-body p-0" *ngIf="clientes">
+                        <table class="table table-sm table-striped projects">
+                            <thead class="m-5">
+                                <tr>
+                                    <th style="width: 10%">
+                                        Cod. Cliente
+                                    </th>
+                                    <th style="width: 15%">
+                                        Nombre
+                                    </th>
+                                    <th style="width: 15%">
+                                        Apellido
+                                    </th>
+                                    <th style="width: 18%">
+                                        Correo electrónico
+                                    </th>                    
+                                    <th>
+                                        Foto
+                                    </th>
+                                    <th style="width: 40%" class="text-center">
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cliente of clientes">
+                                    <td>
+                                        {{ cliente.id }}
+                                    </td>
+                
+                                    <td>
+                                        {{ cliente.nombre }}
+                                    </td>
+                                    
+                                    <td>
+                                        {{ cliente.apellido }}
+                                    </td>
+                
+                                    <td>                   
+                                        {{ cliente.email }}     
+                                    </td>
+                
+                                    <td>
+                                        <img src="assets/img/user.png" alt="" srcset="" height="50">
+                                    </td>
+                
+                                    <td class="project-actions text-center">
+                                        <a class="btn btn-primary btn-sm mx-1" [routerLink]="['/clientes/detalle/', cliente.id]">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            Detalle
+                                        </a>
+                                        <a class="btn btn-info btn-sm mx-1" [routerLink]="['/clientes/actualizar', cliente.id]" routerLinkActive="router-link-active" >
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Editar
+                                        </a>
+                                        <button class="btn btn-danger btn-sm mx-1" href="#" (click)="deleteClient(cliente)">
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <h4 class="py-4 px-2" *ngIf="!clientes">No hay registros para mostrar</h4>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

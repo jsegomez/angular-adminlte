@@ -7,12 +7,13 @@ import { AuthRoutingModule } from '../auth/auth-routing.module';
 import { ClientesRoutingModule } from '../modulos/clientes/clientes-routing.module';
 
 // Componentes
-import { MainClientesComponent } from '../modulos/clientes/main-clientes/main-clientes.component';
 import { InicioComponent } from '../components/inicio/inicio.component';
+import { MainClientesComponent } from '../modulos/clientes/components/main-clientes/main-clientes.component';
 
 export const routes: Routes = [
-  {path: '/inicio', component: InicioComponent },  
-  {path: 'clientes', component: MainClientesComponent },  
+  {path: 'inicio',   component: InicioComponent       },  
+  {path: 'clientes', component: MainClientesComponent },
+  {path: '**', redirectTo: 'inicio'}
 ];
 
 @NgModule({
