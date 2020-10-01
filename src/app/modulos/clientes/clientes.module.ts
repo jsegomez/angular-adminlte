@@ -15,6 +15,7 @@ import { BuscarComponent } from './components/buscar/buscar.component';
 import { ListadoComponent } from './components/listado/listado.component';
 import { MainClientesComponent } from './components/main-clientes/main-clientes.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
+import { PaginadorComponent } from './components/paginador/paginador.component';
 
 registerLocaleData(localeES, 'es');
 
@@ -24,7 +25,8 @@ registerLocaleData(localeES, 'es');
     BuscarComponent,
     ListadoComponent,
     MainClientesComponent,
-    DetalleComponent,    
+    DetalleComponent,
+    PaginadorComponent,    
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ registerLocaleData(localeES, 'es');
     RegistroComponent,
     BuscarComponent,
     ListadoComponent,
-    MainClientesComponent
+    MainClientesComponent,
+    PaginadorComponent
   ]
 })
 export class ClientesModule { }

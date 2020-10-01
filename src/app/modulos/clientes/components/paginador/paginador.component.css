@@ -1,0 +1,9 @@
+.active{
+    background-color: #016AD9;
+    color: white;
+}
+
+.disabled {
+    pointer-events:none; 
+    opacity:0.6;         
+}

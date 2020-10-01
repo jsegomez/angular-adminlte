@@ -70,13 +70,21 @@
               <!-- /.card-body -->
         
               <div class="card-footer" *ngIf="cliente.id">                
-                <button type="submit" class="btn btn-secondary mx-1" (click)="update()">Actualizar</button>
-                <a [routerLink]="['/clientes/detalle/', cliente.id]" type="submit" class="btn btn-danger mx-1">Cancelar</a>
+                <button type="submit" class="btn btn-secondary mx-1" (click)="update()" [disabled]="!formCrearCliente.valid">
+                  Actualizar
+                </button>
+                <a [routerLink]="['/clientes/detalle/', cliente.id]" type="submit" class="btn btn-danger mx-1">
+                  Cancelar
+                </a>
               </div>
 
               <div class="card-footer" *ngIf="!cliente.id">
-                <button type="submit" class="btn btn-secondary mx-1" (click)="create()">Registrar</button>                
-                <a [routerLink]="['/inicio']" type="submit" class="btn btn-danger mx-1">Cancelar</a>
+                <button type="submit" class="btn btn-secondary mx-1" [disabled]="!formCrearCliente.valid" (click)="create()">
+                  Registrar
+                </button>                
+                <a [routerLink]="['/inicio']" type="submit" class="btn btn-danger mx-1">
+                  Cancelar
+                </a>
               </div>
             </form>
           </div>

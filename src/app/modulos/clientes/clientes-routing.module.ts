@@ -15,7 +15,7 @@ const routes: Routes = [
     children:[
       {path: 'registro',        component: RegistroComponent  },
       {path: 'buscar',          component: BuscarComponent    },
-      {path: 'listado',         component: ListadoComponent   },
+      {path: 'pagina/:page',    component: ListadoComponent   },
       {path: 'detalle/:id',     component: DetalleComponent   },
       {path: 'actualizar/:id',  component: RegistroComponent  },
     ]

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../../../models/cliente';
 import { ClientesService } from '../../../../services/clientes.service';
 import Swal from 'sweetalert2';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-detalle',
@@ -14,6 +15,13 @@ import Swal from 'sweetalert2';
 export class DetalleComponent implements OnInit {
 
   cliente: Cliente = new Cliente();
+  image:string = this.cliente.img;
+  inputImg: boolean = false;
+  fotoSeleccionada: File = null;
+  fotoSeleccionadaName: string = '';
+  imageUrl = 'http://localhost:8080/api/image/profile/';  
+  progress: number = 0;
+  mostrarBarra = false;
 
   constructor(
     private serviceCliente: ClientesService,
@@ -22,9 +30,10 @@ export class DetalleComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getClient();    
+    this.getClient();
   }
 
+  // Obtiene clientes por id ruta
   getClient(): void{
     this.paramsRuta.params.subscribe(
       params => {
@@ -63,6 +72,66 @@ export class DetalleComponent implements OnInit {
         )
       }
     })
+  }
+
+
+  // Muestra/oculta Input para carga de imagenes
+  mostrarInputImg(){
+    this.inputImg = !this.inputImg;
+  }
+    
+
+  // Función para seleccionar cargar imagen del input
+  seleccionarImg(event){    
+    this.fotoSeleccionada = event.target.files[0];
+    this.progress = 0;    
+    this.fotoSeleccionadaName = this.fotoSeleccionada.name;  
+    if(this.fotoSeleccionada.type.indexOf('image') < 0){      
+      this.fotoSeleccionada = null
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Archivo seleccionado no es una imagen',
+        showConfirmButton: true,
+        timer: 2500
+      });                  
+    } 
+  }
+
+  subirFoto(){    
+    if(!this.fotoSeleccionada){      
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Favor seleccione una foto',
+        showConfirmButton: true,
+        timer: 2500
+      })
+    }else{
+      this.serviceCliente.uploadImg(this.fotoSeleccionada, (this.cliente.id).toString()).subscribe(
+        event => {
+          if(event.type === HttpEventType.UploadProgress){
+            this.progress = Math.round((event.loaded/event.total) * 100);
+            this.inputImg = false;
+            this.mostrarBarra = true;
+          }else if(event.type === HttpEventType.Response){
+            let response:any = event.body;
+            this.cliente = response.cliente as Cliente;
+        
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Foto cargada con éxito',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.mostrarBarra = false;
+            this.fotoSeleccionada = null;
+            this.fotoSeleccionadaName = '';
+          }
+        },
+      );
+    }
   }
   
 }

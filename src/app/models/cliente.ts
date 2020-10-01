@@ -3,6 +3,7 @@ export class Cliente {
     nombre: string;
     apellido: string;
     email: string;
+    img?: string;
     createAt?: string;
 }
 

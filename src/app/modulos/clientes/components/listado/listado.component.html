@@ -46,7 +46,15 @@
                                     </td>
                 
                                     <td>
-                                        <img src="assets/img/user.png" alt="" srcset="" height="50">
+                                        <img src="assets/img/user.png" alt="" srcset="" height="53" *ngIf="!cliente.img">
+                                        <img
+                                            [src]="imageUrl + '/' + cliente.img"
+                                            alt=""
+                                            *ngIf="cliente.img"
+                                            height="53"
+                                            width="53"
+                                            class="rounded-circle" 
+                                        >
                                     </td>
                 
                                     <td class="project-actions text-center">
@@ -69,6 +77,15 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+
+                    <div class="card-footer bg-transparent border-success p-0">
+                        <app-paginador
+                            *ngIf="cantidadPaginas && cantidadPaginas"
+                            [cantidadPaginas]="cantidadPaginas"
+                            [paginaActual]="paginaActual"
+                        >
+                        </app-paginador>
                     </div>
                     <!-- /.card-body -->
                     <h4 class="py-4 px-2" *ngIf="!clientes">No hay registros para mostrar</h4>

@@ -1,34 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 // Importaciones propias
 import { Cliente } from '../../../../models/cliente';
 import { ClientesService } from '../../../../services/clientes.service';
-import { Observable } from 'rxjs';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listado',
   templateUrl: './listado.component.html',
   styleUrls: ['./listado.component.css']
 })
-export class ListadoComponent implements OnInit {
+export class ListadoComponent implements OnInit{
 
   clientes: Cliente[];
+  cantidadPaginas: number;
+  paginaActual: number;
+  imageUrl = 'http://localhost:8080/api/image/profile/';
 
-  constructor( private servicioCliente: ClientesService ) { }
+  constructor( 
+    private servicioCliente: ClientesService,
+    private activateRoute: ActivatedRoute
+  ){}
 
   ngOnInit(): void {
-    this.obtenerClientes();
+    this.paginador();    
   }
 
-  obtenerClientes(){
-    return this.servicioCliente.getClients().subscribe(
-      (clientes: any) =>{
-        this.clientes = clientes.clientes
+  paginador(){
+    this.activateRoute.paramMap.subscribe(
+      params => {
+        const idRuta: number = +params.get('page');
+        this.servicioCliente.getClientsPage(idRuta).subscribe(
+          (response: any) => {
+            this.clientes = response.clientes.content;
+            this.cantidadPaginas = response.clientes.totalPages;
+            this.paginaActual = response.clientes.number;            
+          }
+        )
       }
     );
   }
-
 
   deleteClient(cliente: Cliente){
     Swal.fire({
@@ -55,8 +67,7 @@ export class ListadoComponent implements OnInit {
         )
       }
     })
-  }
-  
+  }  
 
 }
 

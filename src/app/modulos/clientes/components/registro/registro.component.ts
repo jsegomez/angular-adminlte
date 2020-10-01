@@ -15,25 +15,23 @@ import { ClientesService } from '../../../../services/clientes.service';
 export class RegistroComponent implements OnInit {
 
   cliente: Cliente = new Cliente;
-  idRuta: number;
+  idRuta: number;  
 
   constructor(
-    private formBuilder: FormBuilder,
     private clientService: ClientesService,
-    private router: Router,
-    private idRoute: ActivatedRoute
-  ) {    
-    
-  }
+    private formBuilder: FormBuilder,
+    private idRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadClient()    
   }
 
   public formCrearCliente = this.formBuilder.group({
-    nombre    : [this.cliente.nombre, [Validators.required, Validators.minLength(2)]],
-    apellido  : [this.cliente.apellido, [Validators.required, Validators.minLength(2)]],
-    email     : [this.cliente.email, [Validators.required, Validators.email]],    
+    nombre    : ['', [Validators.required, Validators.minLength(2)]],
+    apellido  : ['', [Validators.required, Validators.minLength(2)]],
+    email     : ['', [Validators.required, Validators.email]],    
   });  
 
   // Validación de campos
@@ -57,12 +55,13 @@ export class RegistroComponent implements OnInit {
             icon: 'success',
             title: `${resultado.mensaje}`,
             showConfirmButton: false,
-            timer: 3000
+            timer: 2000
           })
         }
       );     
     }else{
-      this.formCrearCliente.markAllAsTouched()
+      this.formCrearCliente.markAllAsTouched();
+      return;
     }
   }
 
@@ -70,12 +69,12 @@ export class RegistroComponent implements OnInit {
   loadClient(){
     this.idRoute.params.subscribe(
       params => {
-        this.idRuta = params['id'];
-        if(this.idRuta > 0){
+        this.idRuta = params['id'];        
+        if(this.idRuta){
           this.clientService.getClienteById(this.idRuta).subscribe(
             (client: any) => {
-              this.cliente = client.cliente
-              const { nombre, apellido, email } = this.cliente;
+              this.cliente = client              
+              const { nombre, apellido, email,  } = this.cliente;
               this.formCrearCliente.setValue({nombre, apellido, email})
             }
           )
@@ -99,7 +98,7 @@ export class RegistroComponent implements OnInit {
             icon: 'success',
             title: 'Cliente actualizado con éxito',
             showConfirmButton: false,
-            timer: 3000
+            timer: 2000
           })
         }      
       )
