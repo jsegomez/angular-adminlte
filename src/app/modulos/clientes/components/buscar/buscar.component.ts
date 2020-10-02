@@ -57,8 +57,7 @@ export class BuscarComponent implements OnInit {
         catchError => {
           this.clientes = null;
           this.buscando = false;
-          this.textoInput = null;
-          console.log(catchError)     
+          this.textoInput = null;          
         }
       )
     }    
