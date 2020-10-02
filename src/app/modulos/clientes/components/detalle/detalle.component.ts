@@ -39,7 +39,9 @@ export class DetalleComponent implements OnInit {
       params => {
         const idRuta = params.id;        
         this.serviceCliente.getClienteById(idRuta).subscribe(
-          response => this.cliente = response
+          response => {            
+            this.cliente = response;
+          }          
         )
       }
     );
@@ -74,7 +76,6 @@ export class DetalleComponent implements OnInit {
     })
   }
 
-
   // Muestra/oculta Input para carga de imagenes
   mostrarInputImg(){
     this.inputImg = !this.inputImg;
@@ -98,6 +99,7 @@ export class DetalleComponent implements OnInit {
     } 
   }
 
+  // Subir fotos
   subirFoto(){    
     if(!this.fotoSeleccionada){      
       Swal.fire({

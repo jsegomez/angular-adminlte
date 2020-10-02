@@ -22,22 +22,26 @@ export class BuscarComponent implements OnInit {
   }
 
   findByParams(){
+    this.clientes = null;
     if(this.parametro == null || this.textoInput == null){
       Swal.fire({
         icon: 'warning',
         title: 'Oops...',
         text: 'Favor indicar categoría y parámetro de búsqueda',
       })
+      this.parametro = null;
+      this.textoInput = null;
       return;
     }
-    this.buscando = true
-
+    this.buscando = true    
     if(this.parametro == 'id'){          
       let idCliente: number = +this.textoInput;
       this.serviceCliente.getClienteById(idCliente).subscribe(
         resolve => { 
           this.clientes = [resolve];
           this.buscando = false;
+          this.parametro = null;
+          this.textoInput = null;
         },
         catchError => {
           this.buscando = false;

@@ -134,8 +134,6 @@ export class ClientesService {
     );
   }
 
-
-
   // Método para subir imagenes
   uploadImg(img: File, id: string): Observable<HttpEvent<{}>>{
     let formData = new FormData();    

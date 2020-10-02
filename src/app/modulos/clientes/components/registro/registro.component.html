@@ -50,6 +50,24 @@
                       * Favor proporcionar un correo electronico válido
                     </small>
                 </div>
+
+                <div class="form-group">
+                  <label for="inputState">País</label>
+                  <select 
+                    id="inputState"
+                    class="form-control"
+                    formControlName="pais"
+                    [compareWith]="compararPais"
+                    [ngClass]="{'is-invalid animate__animated animate__headShake': campoNoValido('pais')}"      
+                  >
+                    <option value="">Seleccionar...</option>
+                    <option *ngFor="let pais of paises" [ngValue]="pais">{{ pais.pais }}</option>
+                  </select>
+                  <small *ngIf="campoNoValido('pais')" class="text-danger">
+                    * Favor seleccione un país
+                  </small>                  
+                </div>
+                
                 <!-- <div class="form-group">
                   <label for="exampleInputFile">File input</label>
                   <div class="input-group">

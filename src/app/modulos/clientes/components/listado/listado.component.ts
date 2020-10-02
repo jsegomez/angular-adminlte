@@ -32,10 +32,10 @@ export class ListadoComponent implements OnInit{
       params => {
         const idRuta: number = +params.get('page');
         this.servicioCliente.getClientsPage(idRuta).subscribe(
-          (response: any) => {
+          (response: any) => {            
             this.clientes = response.clientes.content;
             this.cantidadPaginas = response.clientes.totalPages;
-            this.paginaActual = response.clientes.number;            
+            this.paginaActual = response.clientes.number;
           }
         )
       }

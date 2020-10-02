@@ -1,10 +1,13 @@
+import { Pais } from './pais';
+
 export class Cliente {
     id?: number;
     nombre: string;
-    apellido: string;
+    apellido: string;    
     email: string;
-    img?: string;
-    createAt?: string;
+    pais: Pais;
+    img?: string;    
+    createAt?: string;        
 }
 
 
